@@ -29,11 +29,15 @@ https://en.wikipedia.org/wiki/Asynchronous_module_definition
 ### Access the library
 - Include the below JavaScript in the HTML file
 ```html
+<!--Core library reference-->
 <script src="js/image_annotator/lib/require.js"></script>
 <script src="js/image_annotator/config.js"></script>
+<!--Application specific reference-->
+<script src="js/image_annotator/main.js"></script>
 ``` 
 ### Write your own Hello ImageAnnotatorJS
-- In main.html
+- In main.html, you will need to include the above 3 scripts for accessing the features in ImageAnnotatorJS. 
+- The first 2 are core libraries. The last one, main.js is the place your code should place at. 
 ```html
 <!doctype html>
 <html class="no-js" lang="">
