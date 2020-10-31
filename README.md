@@ -1,5 +1,5 @@
 # User Manual
-
+---
 ## What is ImageAnnotatorJS
 ImageAnnotatorJS is a JavaScript library that helps the frontend engineer to develop an annotating system. 
 
