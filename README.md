@@ -48,7 +48,7 @@ https://en.wikipedia.org/wiki/Asynchronous_module_definition
 ```
 
 - In main.js
-```ecmascript 6
+```javascript
 require([
     "jquery",
     "image_annotator",
