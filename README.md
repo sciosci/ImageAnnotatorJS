@@ -2,6 +2,7 @@
 
 ## What is ImageAnnotatorJS
 ImageAnnotatorJS is a JavaScript library that helps the frontend engineer to develop an annotating system. 
+
 One can use it for annotating the shapes onto the HTML5 canvas.
 
 ## Environment setup
@@ -14,8 +15,11 @@ One can use it for annotating the shapes onto the HTML5 canvas.
 
 ## About 'AMD' 
 AMD is the abbreviation for Asynchronous module definition. 
+
 Package complies with this standard will load the dependent model asynchronously.  
+
 For more information, please refer to the wiki: 
+
 https://en.wikipedia.org/wiki/Asynchronous_module_definition
 
 ---
