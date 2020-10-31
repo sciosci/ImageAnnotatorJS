@@ -7,11 +7,13 @@ One can use it for annotating the shapes onto the HTML5 canvas.
 
 ## Environment setup
 ### JavaScript Version
-- javascript
+- ECMAScript 6
 ### Library Dependency
 - JQuery 3.5.1
 - RequireJS 2.3.6
 - FabricJS 3.6.6
+### Specification of Module Definition
+- AMD
 
 ## About 'AMD' 
 AMD is the abbreviation for Asynchronous module definition. 
