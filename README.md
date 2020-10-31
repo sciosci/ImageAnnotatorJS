@@ -6,7 +6,7 @@ One can use it for annotating the shapes onto the HTML5 canvas.
 
 ## Environment setup
 ### JavaScript Version
-- ECMAScript 6
+- javascript
 ### Library Dependency
 - JQuery 3.5.1
 - RequireJS 2.3.6
@@ -67,46 +67,46 @@ Here is the full API list.
 
 ## API
 - Restore the default setting - Drawing the shape of red square. 
-```ecmascript 6
+```javascript
 image_annotator.default()
 ```
 
 - Chang the color of all the shapes in the current layer. 
-```ecmascript 6
+```javascript
 image_annotator.change_color(color)
 ```
 
 - Switch to the square nib. 
-```ecmascript 6
+```javascript
 image_annotator.switch_square_nib()
 ```
 
 - Switch to the polygon nib. 
-```ecmascript 6
+```javascript
 image_annotator.switch_polygon_nib()
 ```
 
 - Switch to the previous layer. 
-```ecmascript 6
+```javascript
 image_annotator.switch_prev_layer()
 ```
 
 - Switch to the next layer. 
-```ecmascript 6
+```javascript
 image_annotator.switch_next_layer()
 ```
 
 - Clear the current layer. 
-```ecmascript 6
+```javascript
 image_annotator.clear_layer()
 ```
 
 - Convert the coordination in each shape of the layers into the JSON object.  
-```ecmascript 6
+```javascript
 image_annotator.to_json()
 ```
 
 - Using JSON object, rendering into the current layer. 
-```ecmascript 6
+```javascript
 image_annotator.from_json()
 ```
