@@ -3,7 +3,7 @@ define([
     'fabric',
     'square_pen',
     'polygon_pen',
-    'group',
+    'layer',
     'shape',
     'point',
 ], function (
@@ -11,7 +11,7 @@ define([
     fabric,
     SquarePen,
     PolygonPen,
-    Group,
+    Layer,
     Shape,
     Point,
 ) {
@@ -23,17 +23,17 @@ define([
         #polygon_pen = null
         #pens = null
         #activated_pen = null
-        #groups = null
+        #layers = null
         #idx = 0
 
         constructor(canvas_id) {
             this.#canvas = window._canvas = new fabric.Canvas(canvas_id);
-            var group = new Group()
-            group.set_color(this.#shape_color)
-            this.#groups = [group]
+            var layer = new Layer()
+            layer.set_color(this.#shape_color)
+            this.#layers = [layer]
 
-            this.#square_pen = new SquarePen(this.#canvas, group, this.#shape_color)
-            this.#polygon_pen = new PolygonPen(this.#canvas, group, this.#shape_color)
+            this.#square_pen = new SquarePen(this.#canvas, layer, this.#shape_color)
+            this.#polygon_pen = new PolygonPen(this.#canvas, layer, this.#shape_color)
             this.#pens = [this.#square_pen, this.#polygon_pen]
             this.#activated_pen = this.#square_pen
 
@@ -42,7 +42,7 @@ define([
 
         default() {
             this.change_color('red')
-            this.switch_square_pen()
+            this.switch_square_nib()
         }
 
         #register_events() {
@@ -58,96 +58,96 @@ define([
             return this
         }
 
-        #render_group() {
-            var group = this.#groups[this.#idx]
-            this.#polygon_pen.render(group)
+        #render_layer() {
+            var layer = this.#layers[this.#idx]
+            this.#polygon_pen.render(layer)
         }
 
         change_color(color) {
             this.#canvas.shape_color = color
-            this.#groups[this.#idx].set_color(color)
-            this.#render_group()
+            this.#layers[this.#idx].set_color(color)
+            this.#render_layer()
             return this
         }
 
-        switch_square_pen() {
+        switch_square_nib() {
             this.#activated_pen = this.#square_pen
-            var current_group = this.#groups[this.#idx]
-            this.#activated_pen.change_group(current_group)
+            var current_layer = this.#layers[this.#idx]
+            this.#activated_pen.change_layer(current_layer)
             this.#register_events()
             return this
         }
 
-        switch_polygon_pen() {
+        switch_polygon_nib() {
             this.#activated_pen = this.#polygon_pen
-            var current_group = this.#groups[this.#idx]
-            this.#activated_pen.change_group(current_group)
+            var current_layer = this.#layers[this.#idx]
+            this.#activated_pen.change_layer(current_layer)
             this.#register_events()
             return this
         }
 
-        switch_prev_group() {
+        switch_prev_layer() {
             if (this.#idx) this.#idx--
-            var current_group = this.#groups[this.#idx]
-            this.#activated_pen.change_group(current_group)
+            var current_layer = this.#layers[this.#idx]
+            this.#activated_pen.change_layer(current_layer)
 
-            this.#render_group()
+            this.#render_layer()
             return this
         }
 
-        switch_next_group() {
-            if (!this.#groups[this.#idx].is_empty()) this.#idx++
-            if (this.#groups.length == this.#idx) {
-                var group = new Group()
-                group.set_color(this.#shape_color)
-                this.#groups.push(group)
+        switch_next_layer() {
+            if (!this.#layers[this.#idx].is_empty()) this.#idx++
+            if (this.#layers.length == this.#idx) {
+                var layer = new layer()
+                layer.set_color(this.#shape_color)
+                this.#layers.push(layer)
             }
-            var current_group = this.#groups[this.#idx]
-            this.#activated_pen.change_group(current_group)
+            var current_layer = this.#layers[this.#idx]
+            this.#activated_pen.change_layer(current_layer)
 
-            this.#render_group()
+            this.#render_layer()
             return this
         }
 
-        delete_group() {
-            this.#groups.splice(this.#idx, 1)
-            if (this.#groups.length == 0) {
-                var group = new Group()
-                group.set_color(this.#shape_color)
-                this.#groups.push(group)
+        clear_layer() {
+            this.#layers.splice(this.#idx, 1)
+            if (this.#layers.length == 0) {
+                var layer = new layer()
+                layer.set_color(this.#shape_color)
+                this.#layers.push(layer)
             } else {
                 if (this.#idx > 0) this.#idx--
             }
-            var current_group = this.#groups[this.#idx]
-            this.#activated_pen.change_group(current_group)
+            var current_layer = this.#layers[this.#idx]
+            this.#activated_pen.change_layer(current_layer)
 
-            this.#render_group()
+            this.#render_layer()
             return this
         }
 
         to_json() {
             var json_obj = []
-            this.#groups.forEach(
-                group => json_obj.push(group.to_json())
+            this.#layers.forEach(
+                layer => json_obj.push(layer.to_json())
             )
             return json_obj
         }
 
-        from_json(json_obj_group) {
-            var color = json_obj_group.color
+        from_json(json_obj_layer) {
+            var color = json_obj_layer.color
 
-            var group
-            if (this.#groups[this.#idx].is_empty()) {
-                group = this.#groups[this.#idx]
+            var layer
+            if (this.#layers[this.#idx].is_empty()) {
+                layer = this.#layers[this.#idx]
             } else {
-                group = new Group()
-                this.#groups.push(group)
+                layer = new layer()
+                this.#layers.push(layer)
                 this.#idx++
             }
 
-            var shapes = group.get_shape()
+            var shapes = layer.get_shape()
 
-            json_obj_group.shapes.forEach(
+            json_obj_layer.shapes.forEach(
                 json_obj_shape => {
                     var shape = new Shape()
                     json_obj_shape.points.forEach(
@@ -157,11 +157,11 @@ define([
                 }
             )
 
-            var current_group = this.#groups[this.#idx]
+            var current_layer = this.#layers[this.#idx]
             this.change_color(color)
-            this.#activated_pen.change_group(current_group)
+            this.#activated_pen.change_layer(current_layer)
 
-            this.#render_group()
+            this.#render_layer()
         }
     }
 });

@@ -8,8 +8,8 @@ define([
     Shape,
 ) {
     return class PolygonPen extends Pen {
-        constructor(canvas, group, shape_color) {
-            super(canvas, group);
+        constructor(canvas, layer, shape_color) {
+            super(canvas, layer);
             this.get_canvas().setStartingPoint = this.setStartingPoint
             this.get_canvas().makeRoof = this.makeRoof
             this.get_canvas().findTopPaddingForRoof = this.findTopPaddingForRoof
@@ -152,16 +152,16 @@ define([
             points.forEach(
                 point => shape.add_point(point)
             )
-            this.get_current_group().add_shape(shape)
+            this.get_current_layer().add_shape(shape)
         }
 
-        render(group) {
+        render(layer) {
             this.get_canvas().clear()
-            if (group.is_empty()) {
+            if (layer.is_empty()) {
                 console.log('No point to render, clean the canvas')
             } else {
                 var that = this
-                var shapes = group.get_shape()
+                var shapes = layer.get_shape()
                 shapes.forEach(
                     shape => {
                         var points = shape.get_point()

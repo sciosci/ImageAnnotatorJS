@@ -10,8 +10,8 @@ define([
     fabric,
 ) {
     return class SquarePen extends Pen {
-        constructor(canvas, group, shape_color) {
-            super(canvas, group)
+        constructor(canvas, layer, shape_color) {
+            super(canvas, layer)
             this.get_canvas().shape_color = shape_color
         }
 
@@ -52,22 +52,30 @@ define([
                 fill: 'rgba(0,0,0,0)',
                 transparentCorners: true
             });
+            this.rect.lockMovementX = true;
+            this.rect.lockMovementY = true;
+            this.rect.lockScalingX = true;
+            this.rect.lockScalingY = true;
+            this.rect.lockRotation = true;
+            this.rect.set('selectable', false);
             this.add(this.rect);
         }
 
         mouse_move(o) {
             if (!this.isDown) return;
-            var pointer = this.getPointer(o.e);
+            var pointer = this.getPointer(o.originalEvent);
 
-            if (this.origX > pointer.x) {
-                this.rect.set({left: Math.abs(pointer.x)});
+            var x = pointer.x >= 0 ? pointer.x : 0
+            var y = pointer.y >= 0 ? pointer.y : 0
+            if (this.origX >= pointer.x) {
+                this.rect.set({left: Math.abs(x)});
             }
-            if (this.origY > pointer.y) {
-                this.rect.set({top: Math.abs(pointer.y)});
+            if (this.origY >= pointer.y) {
+                this.rect.set({top: Math.abs(y)});
             }
 
-            this.rect.set({width: Math.abs(this.origX - pointer.x)});
-            this.rect.set({height: Math.abs(this.origY - pointer.y)});
+            this.rect.set({width: Math.abs(this.origX - x)});
+            this.rect.set({height: Math.abs(this.origY - y)});
 
             this.renderAll();
         }
@@ -91,7 +99,7 @@ define([
             points.forEach(
                 point => shape.add_point(point)
             )
-            this.get_current_group().add_shape(shape)
+            this.get_current_layer().add_shape(shape)
         }
     }
 });

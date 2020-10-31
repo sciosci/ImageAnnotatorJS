@@ -25,9 +25,9 @@ require.config({
             'point':            'image_annotator/component/point',
             'square_pen':       'image_annotator/component/square_pen',
             'polygon_pen':      'image_annotator/component/polygon_pen',
-            'group':            'image_annotator/model/group',
+            'layer':            'image_annotator/model/layer',
             'shape':            'image_annotator/model/shape',
-            'image_annotator': 'image_annotator/image_annotator',
+            'image_annotator':  'image_annotator/image_annotator',
         }
     }
 })

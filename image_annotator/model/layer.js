@@ -1,7 +1,7 @@
 define([
 ], function (
 ) {
-    return class Group {
+    return class Layer {
         #color = null
         #shapes = []
 

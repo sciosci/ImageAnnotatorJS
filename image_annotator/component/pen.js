@@ -4,11 +4,11 @@ define([
     return class Pen {
 
         #canvas = null
-        #group = null
+        #layer = null
 
-        constructor(canvas, group) {
+        constructor(canvas, layer) {
             this.#canvas = canvas
-            this.#group = group
+            this.#layer = layer
         }
 
         register_events() {
@@ -43,12 +43,12 @@ define([
             return this.#canvas
         }
 
-        change_group(group) {
-            this.#group = group
+        change_layer(layer) {
+            this.#layer = layer
         }
 
-        get_current_group() {
-            return this.#group
+        get_current_layer() {
+            return this.#layer
         }
 
         write_coordination() {
