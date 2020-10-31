@@ -78,32 +78,32 @@ Here is the full API list.
 ## API
 - Restore the default setting - Drawing the shape of red square. 
 ```javascript
-image_annotator.default()
+ImageAnnotator.default()
 ```
 
 - Chang the color of all the shapes in the current layer. 
 ```javascript
-image_annotator.change_color(color)
+ImageAnnotator.change_color(color)
 ```
 
 - Switch to the square nib. 
 ```javascript
-image_annotator.switch_square_nib()
+ImageAnnotator.switch_square_nib()
 ```
 
 - Switch to the polygon nib. 
 ```javascript
-image_annotator.switch_polygon_nib()
+ImageAnnotator.switch_polygon_nib()
 ```
 
 - Switch to the previous layer. 
 ```javascript
-image_annotator.switch_prev_layer()
+ImageAnnotator.switch_prev_layer()
 ```
 
 - Switch to the next layer. 
 ```javascript
-image_annotator.switch_next_layer()
+ImageAnnotator.switch_next_layer()
 ```
 
 - Clear the current layer. 
