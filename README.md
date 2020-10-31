@@ -108,15 +108,15 @@ ImageAnnotator.switch_next_layer()
 
 - Clear the current layer. 
 ```javascript
-image_annotator.clear_layer()
+ImageAnnotator.clear_layer()
 ```
 
 - Convert the coordination in each shape of the layers into the JSON object.  
 ```javascript
-image_annotator.to_json()
+ImageAnnotator.to_json()
 ```
 
 - Using JSON object, rendering into the current layer. 
 ```javascript
-image_annotator.from_json()
+ImageAnnotator.from_json()
 ```
