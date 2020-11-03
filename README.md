@@ -1,6 +1,16 @@
-# User Manual
+# ImageAnnotatorJS: A browser-based annotator for research integrity labeling and displaying
+
+(c) 2020 Daniel E. Acuna and Jian Jian
+
+## Authors
+- [Jian Jian](https://www.linkedin.com/in/ken-j/), developer, Master's student, Syracuse University
+- [Daniel Acuna](https://acuna.io), ideas, Assistant Professor, Syracuse University
+
+## Funding
+- This project has been partially funded by the Office of Research Integrity, Department of Health and Human Services, under grants ORIIIR190049 and ORIIR180041
 
 ## What is ImageAnnotatorJS
+
 ImageAnnotatorJS is a JavaScript library that helps the frontend engineer to develop an annotating system. 
 
 One can use it for annotating the shapes onto the HTML5 canvas.
