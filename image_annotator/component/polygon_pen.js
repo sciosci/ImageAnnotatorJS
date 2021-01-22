@@ -128,7 +128,7 @@ define([
         }
 
         setStartingPoint(options) {
-            var offset = $('#c').offset();
+            var offset = $(`#${$.escapeSelector(this.lowerCanvasEl.id)}`).offset();
             this.x = options.e.pageX - offset.left;
             this.y = options.e.pageY - offset.top;
         }

@@ -25,6 +25,8 @@ define([
         #activated_pen = null
         #layers = null
         #idx = 0
+        #backgroumd_img_url = null
+
 
         constructor(canvas_id) {
             this.#canvas = window._canvas = new fabric.Canvas(canvas_id);
@@ -61,6 +63,7 @@ define([
         #render_layer() {
             var layer = this.#layers[this.#idx]
             this.#polygon_pen.render(layer)
+            this.set_backgroud_img(this.#backgroumd_img_url)
         }
 
         change_color(color) {
@@ -98,7 +101,7 @@ define([
         switch_next_layer() {
             if (!this.#layers[this.#idx].is_empty()) this.#idx++
             if (this.#layers.length == this.#idx) {
-                var layer = new layer()
+                var layer = new Layer()
                 layer.set_color(this.#shape_color)
                 this.#layers.push(layer)
             }
@@ -112,7 +115,7 @@ define([
         clear_layer() {
             this.#layers.splice(this.#idx, 1)
             if (this.#layers.length == 0) {
-                var layer = new layer()
+                var layer = new Layer()
                 layer.set_color(this.#shape_color)
                 this.#layers.push(layer)
             } else {
@@ -123,6 +126,26 @@ define([
 
             this.#render_layer()
             return this
+        }
+
+        get_layer_index() {
+            return this.#idx
+        }
+
+        get_layers() {
+            return this.#layers
+        }
+
+        set_backgroud_img(url) {
+            var that = this
+            this.#backgroumd_img_url = url
+            fabric.Image.fromURL(url, function(img) {
+                //i create an extra var for to change some image properties
+                that.#canvas.setWidth(img.width);
+                that.#canvas.setHeight(img.height);
+                that.#canvas.setBackgroundImage(img);
+                that.#canvas.calcOffset();
+            });
         }
 
         to_json() {
@@ -140,7 +163,7 @@ define([
             if (this.#layers[this.#idx].is_empty()) {
                 layer = this.#layers[this.#idx]
             } else {
-                layer = new layer()
+                layer = new Layer()
                 this.#layers.push(layer)
                 this.#idx++
             }
