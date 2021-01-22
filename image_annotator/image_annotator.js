@@ -98,8 +98,8 @@ define([
             return this
         }
 
-        switch_next_layer() {
-            if (!this.#layers[this.#idx].is_empty()) this.#idx++
+        switch_next_layer(force) {
+            if (force || !this.#layers[this.#idx].is_empty()) this.#idx++
             if (this.#layers.length == this.#idx) {
                 var layer = new Layer()
                 layer.set_color(this.#shape_color)
