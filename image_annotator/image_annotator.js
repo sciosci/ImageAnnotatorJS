@@ -140,7 +140,7 @@ define([
             var that = this
             this.#backgroumd_img_url = url
             fabric.Image.fromURL(url, function(img) {
-                //i create an extra var for to change some image properties
+                // create an extra var for to change some image properties
                 that.#canvas.setWidth(img.width);
                 that.#canvas.setHeight(img.height);
                 that.#canvas.setBackgroundImage(img);
