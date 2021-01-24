@@ -13,6 +13,10 @@ define([
             this.#color = color
         }
 
+        get_color() {
+            return this.#color
+        }
+
         add_shape(shape) {
             this.#shapes.push(shape)
         }

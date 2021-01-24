@@ -18,6 +18,7 @@ define([
     return class ImageAnnotator {
 
         #canvas = null
+        #canvas_id = null
         #shape_color = null
         #square_pen = null
         #polygon_pen = null
@@ -25,11 +26,12 @@ define([
         #activated_pen = null
         #layers = null
         #idx = 0
-        #backgroumd_img_url = null
+        #background_img_url = null
 
 
         constructor(canvas_id) {
             this.#canvas = window._canvas = new fabric.Canvas(canvas_id);
+            this.#canvas_id = canvas_id;
             var layer = new Layer()
             layer.set_color(this.#shape_color)
             this.#layers = [layer]
@@ -63,7 +65,7 @@ define([
         #render_layer() {
             var layer = this.#layers[this.#idx]
             this.#polygon_pen.render(layer)
-            this.set_backgroud_img(this.#backgroumd_img_url)
+            this.set_backgroud_img(this.#background_img_url)
         }
 
         change_color(color) {
@@ -93,6 +95,7 @@ define([
             if (this.#idx) this.#idx--
             var current_layer = this.#layers[this.#idx]
             this.#activated_pen.change_layer(current_layer)
+            this.#canvas.shape_color = current_layer.get_color()
 
             this.#render_layer()
             return this
@@ -107,6 +110,7 @@ define([
             }
             var current_layer = this.#layers[this.#idx]
             this.#activated_pen.change_layer(current_layer)
+            this.#canvas.shape_color = current_layer.get_color()
 
             this.#render_layer()
             return this
@@ -123,9 +127,14 @@ define([
             }
             var current_layer = this.#layers[this.#idx]
             this.#activated_pen.change_layer(current_layer)
+            this.#canvas.shape_color = current_layer.get_color()
 
             this.#render_layer()
             return this
+        }
+
+        get_canvas_id() {
+            return this.#canvas_id
         }
 
         get_layer_index() {
@@ -138,8 +147,8 @@ define([
 
         set_backgroud_img(url) {
             var that = this
-            this.#backgroumd_img_url = url
-            fabric.Image.fromURL(url, function(img) {
+            this.#background_img_url = url
+            fabric.Image.fromURL(url, function (img) {
                 // create an extra var for to change some image properties
                 that.#canvas.setWidth(img.width);
                 that.#canvas.setHeight(img.height);
@@ -159,16 +168,11 @@ define([
         from_json(json_obj_layer) {
             var color = json_obj_layer.color
 
-            var layer
-            if (this.#layers[this.#idx].is_empty()) {
-                layer = this.#layers[this.#idx]
-            } else {
-                layer = new Layer()
-                this.#layers.push(layer)
-                this.#idx++
-            }
+            var current_layer = new Layer()
+            current_layer.set_color(color)
+            this.#layers[this.#idx] = current_layer
 
-            var shapes = layer.get_shape()
+            var shapes = current_layer.get_shape()
 
             json_obj_layer.shapes.forEach(
                 json_obj_shape => {
@@ -180,7 +184,10 @@ define([
                 }
             )
 
-            var current_layer = this.#layers[this.#idx]
+            current_layer = new Layer()
+            this.#layers.push(current_layer)
+            this.#idx++
+
             this.change_color(color)
             this.#activated_pen.change_layer(current_layer)
 
